@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+
 namespace TechJobsConsole
 {
     class Program
@@ -63,12 +64,27 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        
+                        //Console.WriteLine("Search all fields not yet implemented.");
+                        PrintJobs(JobData.FindAll());
                     }
                     else
                     {
                         searchResults = JobData.FindByColumnAndValue(columnChoice, searchTerm);
-                        PrintJobs(searchResults);
+
+                        if (searchResults.Count == 0)
+                        {
+                            Console.WriteLine("\n**** No results ****");
+                        }
+                        else
+                        {
+                            PrintJobs(searchResults);
+                        }
+
+                        
+
+                        //foreach (string selection in searchResults)Console.WriteLine(searchResults);
+
                     }
                 }
             }
@@ -115,10 +131,28 @@ namespace TechJobsConsole
 
             return choiceKeys[choiceIdx];
         }
-
+      
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+            
+            List<Dictionary<string, string>> jobs = someJobs;
+            
+            
+
+            foreach (Dictionary<string, string> job in jobs)
+            {
+                Console.WriteLine("\n ***** ");
+
+                foreach (KeyValuePair<string, string> stat in job)
+                {
+                   
+                   Console.WriteLine(stat.Key + ":" + stat.Value);
+                   
+                }
+
+                Console.WriteLine(" ***** ");
+            }
+            
         }
     }
 }
